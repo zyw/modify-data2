@@ -15,6 +15,8 @@ import java.util.regex.Pattern;
 
 import cn.demo.modifydata.util.ConfigFileUtils;
 import cn.demo.modifydata.util.EnumStopFlag;
+import cn.demo.modifydata.util.MD5Util;
+import cn.demo.modifydata.util.NetworkUtil;
 import com.google.common.collect.*;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -46,6 +48,9 @@ public class FXMLController implements Initializable {
 
     @FXML
     private TextField input2;
+
+    @FXML
+    private TextField secretKey;
 
     private static final FileChooser FILE_CHOOSER = new FileChooser();
 
@@ -529,6 +534,14 @@ public class FXMLController implements Initializable {
     private void initConstNum() {
         try {
             configModel = ConfigFileUtils.readConfigFile();
+
+            String crypt = MD5Util.crypt(secretKey.getText() + NetworkUtil.allphyicalMACString());
+            if(!StringUtils.equals(crypt,configModel.getLicence())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR,"许可错误！");
+                alert.showAndWait();
+                System.exit(0);
+            }
+
             Range<Integer> rbfRange = Range.closed(configModel.getRbfStart(), configModel.getRbfEnd());
             rbfList = Lists.newArrayList();
             for(Integer i : ContiguousSet.create(rbfRange, DiscreteDomain.integers())) {
@@ -544,7 +557,8 @@ public class FXMLController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR,e.getMessage());
-            alert.show();
+            alert.showAndWait();
+            System.exit(0);
         }
     }
 

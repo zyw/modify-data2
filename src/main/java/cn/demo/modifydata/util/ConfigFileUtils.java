@@ -15,6 +15,8 @@ public class ConfigFileUtils {
     private static final String RZ_START_KEY = "rz.start";
     private static final String RZ_END_KEY = "rz.end";
 
+    private static final String SECRET_KEY_LICENCE = "licence";
+
     public static ConfigModel readConfigFile() {
         Properties properties = new Properties();
         ConfigModel result = new ConfigModel();
@@ -38,6 +40,14 @@ public class ConfigFileUtils {
             if(StringUtils.isEmpty(StringUtils.trim(rzEndStr))) {
                 throw new RuntimeException("rz.end配置信息不能为空！");
             }
+
+            String licence = properties.getProperty(SECRET_KEY_LICENCE);
+
+            if(StringUtils.isEmpty(StringUtils.trim(licence))) {
+                throw new RuntimeException("licence配置不能为空！");
+            }
+
+            result.setLicence(licence);
 
             result.setRbfStart(Integer.valueOf(rbfStartStr));
             result.setRbfEnd(Integer.valueOf(rbfEndStr));

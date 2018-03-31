@@ -22,5 +22,6 @@
       <TextField fx:id="input2" layoutX="113.0" layoutY="163.0" prefHeight="27.0" prefWidth="160.0" promptText="输入正数会加负数会减" />
       <Label layoutX="48.0" layoutY="49.0" text="文件名称:" />
       <TextField fx:id="fileName" layoutX="109.0" layoutY="44.0" promptText="输入生成文件的名称" />
+      <TextField fx:id="secretKey" layoutX="67.0" layoutY="256.0" text="QAZWSXwsxqaz@#$%54321UIYERUFJ-" visible="false" />
     </children>
 </AnchorPane>

@@ -10,6 +10,8 @@ public class ConfigModel implements Serializable {
     private Integer rzStart;
     private Integer rzEnd;
 
+    private String licence;
+
     public Integer getRbfStart() {
         return rbfStart;
     }
@@ -40,6 +42,14 @@ public class ConfigModel implements Serializable {
 
     public void setRzEnd(Integer rzEnd) {
         this.rzEnd = rzEnd;
+    }
+
+    public String getLicence() {
+        return licence;
+    }
+
+    public void setLicence(String licence) {
+        this.licence = licence;
     }
 
     @Override
